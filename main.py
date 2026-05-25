@@ -2,6 +2,11 @@ from tkinter import *
 from words import RandomWordsGenerator
 
 score = 0
+countdown_seconds = 60
+start_timer = False
+clock_running = False
+clock = None
+clock_label = None
 
 random_words_generator = RandomWordsGenerator()
 words = random_words_generator.random_words
@@ -33,8 +38,30 @@ entry.pack()
 entry.focus()
 
 
+def new_window():
+    global clock, clock_label
+    clock = Toplevel(root)
+    clock.title('COUNTDOWN')
+    clock_label = Label(clock, text=countdown_seconds)
+    clock_label.pack()
+
+
+def timer():
+    global countdown_seconds, clock_running, clock, clock_label
+    if not clock_running:
+        new_window()
+        clock_running = True
+    if countdown_seconds > 0:
+        clock_label.config(text=countdown_seconds)
+        countdown_seconds -= 1
+        clock.after(1000, timer)
+
+
 def next_word(event):
-    global score, words
+    global score, words, start_timer
+    if not start_timer:
+        timer()
+    start_timer = True
     typed_word = entry.get().strip().lower()
     current_word = words[0]
     if typed_word == current_word.lower():
