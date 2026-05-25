@@ -35,18 +35,14 @@ entry.focus()
 
 def next_word(event):
     global score, words
-    typed_word = entry.get().strip()
+    typed_word = entry.get().strip().lower()
     current_word = words[0]
-    if typed_word == current_word:
+    if typed_word == current_word.lower():
         score += 1
-    else:
-        print('no')
     words.remove(current_word)
     score_label.config(text=f'Score: {score}')
     focus_word.config(text=words[0])
     words_to_type.config(text=words[1:10])
-    root.update()
-    root.update_idletasks()
     entry.delete(0, END)
 
 
