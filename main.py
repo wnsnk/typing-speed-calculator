@@ -102,6 +102,5 @@ def next_word(event):
 
 
 root.bind('<space>', next_word)
-# root.bind('<return>', next_word)
 
 root.mainloop()
