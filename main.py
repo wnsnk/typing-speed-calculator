@@ -4,6 +4,8 @@ from dictionary_cleaner import RandomWordsGenerator
 TITLE_FONT = ('Arial', 30, 'bold')
 SUBTITLE_FONT = ('Arial', 20, 'bold')
 score = 0
+total_words_typed = 0
+
 countdown_seconds = 60
 start_timer = False
 clock_running = False
@@ -61,7 +63,7 @@ def new_window():
 
 
 def timer():
-    global countdown_seconds, clock_running, clock, clock_label, clock_timer
+    global countdown_seconds, clock_running, clock, clock_label, clock_timer, start_timer
     if not clock_running:
         new_window()
         clock_running = True
@@ -70,11 +72,17 @@ def timer():
         countdown_seconds -= 1
         clock.after(1000, timer)
     if countdown_seconds == 0:
-        print(score)
+        focus_word.config(text=f'FINAL SCORE: {score}')
+        words_to_type.config(
+            text=f'Total words typed: {total_words_typed}\nTotal spelled correctly: {score}\nPercentage correct: {int((score / total_words_typed) * 100)}%')
+        clock.destroy()
+        clock.update()
+        clock_running = False
+        start_timer = False
 
 
 def next_word(event):
-    global score, words, start_timer
+    global score, words, start_timer, total_words_typed
     if not start_timer:
         timer()
     start_timer = True
@@ -82,6 +90,10 @@ def next_word(event):
     current_word = words[0]
     if typed_word == current_word.lower():
         score += 1
+        total_words_typed += 1
+    else:
+        total_words_typed += 1
+
     words.remove(current_word)
     score_label.config(text=f'Score: {score}')
     focus_word.config(text=words[0])
