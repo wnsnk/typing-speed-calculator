@@ -25,11 +25,11 @@ score_label = Label(root, text=f'Score: {score}', background='white',)
 score_label.pack()
 
 label = Label(root, background='white',
-              text='Typing Speed Calculator!', font=TITLE_FONT)
+              text='Typing Speed Calculator!', font=TITLE_FONT, padx=20, pady=10)
 label.pack()
 
-explanation_label = Label(root, background='white',
-                          text='Type the word on the screen as fast and accurate as you can!')
+explanation_label = Label(root, background='white', padx=20, pady=20,
+                          text='Type the word on the screen as fast and accurate as you can!\nPress space after each word to advance to the next word.')
 explanation_label.pack()
 
 focus_word = Label(root, background='light blue',
