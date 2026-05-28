@@ -19,6 +19,7 @@ words = random_words_generator.random_words
 
 print(words)
 root = Tk()
+root.title('Typing Speed Calculator')
 root.config(background='white')
 
 score_label = Label(root, text=f'Score: {score}', background='white',)
